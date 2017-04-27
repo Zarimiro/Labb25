@@ -1,0 +1,100 @@
+using namespace std;
+unsigned counter;
+
+
+template <typename T>
+class BinarySearchTree {
+public:
+	T x; //root
+	BinarySearchTree *l, *r; //left,right
+};
+
+template <typename T>
+void print(BinarySearchTree<T> *&Tree, unsigned level) {
+	if (Tree != NULL) {
+		print(Tree->r, level + 1);
+		for (unsigned i = 0; i < level; ++i)cout << "-";
+		cout << Tree->x << endl;
+		print(Tree->l, level + 1);
+	}
+}
+
+template <typename T>
+void print_all(BinarySearchTree<T> *&Tree) {
+	print(*&Tree, 0);
+	cout << "\n" << counter << " elements";
+}
+template <typename T>
+void search(BinarySearchTree<T> *&Tree, T x, unsigned level) {
+	if (Tree != NULL) {
+		search(Tree->r, x, level + 1);
+		if (Tree->x == x) {
+			cout << "\nElement " << x << " found in ";
+			cout << level << " level";
+		}
+		search(Tree->l, x, level + 1);
+	}
+}
+template <typename T>
+void search_all(BinarySearchTree<T> *&Tree, T x) {
+	search(*&Tree, x, 0);
+}
+
+template <typename T>
+void add_branch(T x, BinarySearchTree<T> *&Tree) {
+	if (Tree == NULL) {
+		Tree = new BinarySearchTree<T>;
+		Tree->x = x;
+		Tree->l = Tree->r = NULL;
+		counter++;
+	}
+	if (x < Tree->x) { 
+		if (Tree->l != NULL)add_branch(x, Tree->l);
+		else {
+			Tree->l = new BinarySearchTree<T>;
+			Tree->l->l = Tree->l->r = NULL;
+			Tree->l->x = x;
+			counter++;
+		}
+	}
+
+	if (x > Tree->x) { 
+		if (Tree->r != NULL)add_branch(x, Tree->r);
+		else {
+			Tree->r = new BinarySearchTree<T>;
+			Tree->r->l = Tree->r->r = NULL;
+			Tree->r->x = x;
+			counter++;
+		}
+	}
+}
+
+
+ofstream tree("tree.txt");
+template <typename T>
+void saveas(BinarySearchTree<T> *&Tree) {
+	if (Tree != NULL) {
+		saveas(Tree->l);
+		tree << Tree->x << " ";
+		saveas(Tree->r);
+	}
+}
+
+template <typename T>
+void save(BinarySearchTree<T> *&Tree) {
+	tree << "[ " << Tree->x << " ";
+	saveas(*&Tree);
+	tree << "]";
+	tree.close();
+}
+
+
+
+template <typename T>
+void clear(BinarySearchTree<T> *&Tree) {
+	if (Tree != NULL) {
+		clear(Tree->l);
+		clear(Tree->r);
+		delete Tree;
+	}
+}
