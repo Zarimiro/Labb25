@@ -2,7 +2,7 @@
 #include<iostream>
 #include<conio.h>
 #include<fstream>
-#include<trees.hpp>
+#include"Labb25.hpp"
 
 int main() {
 	BinarySearchTree <int> *Tree = NULL;
