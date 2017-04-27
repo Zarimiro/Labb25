@@ -4,9 +4,9 @@ project (Labb25)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(HEADERS ${PROJECT_SOURCE_DIR}/include/trees.h)
+set(HEADERS ${PROJECT_SOURCE_DIR}/include/Labb25.hpp)
 set(HEADERS ${PROJECT_SOURCE_DIR}/include/catch.hpp)
-set(SOURCES ${PROJECT_SOURCE_DIR}/sources/trees.cpp)
+set(SOURCES ${PROJECT_SOURCE_DIR}/sources/Labb25.cpp)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
